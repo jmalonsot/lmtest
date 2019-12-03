@@ -6,17 +6,17 @@ public abstract class Product {
 
     private BigDecimal price;
 
-    private String stringPrice;
+
 
 
     public BigDecimal getPrice() {
-        return this.price;
+        return price;
     }
 
-    public void setPrice(String price) {
-        this.stringPrice = price;
-        this.price = new BigDecimal(this.stringPrice);
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
+
 
     public  abstract BigDecimal getPriceWithTax();
 

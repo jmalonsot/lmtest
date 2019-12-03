@@ -4,8 +4,7 @@ package com.java.lmtest.types;
 
 import java.math.BigDecimal;
 
-public class Book extends Product {
-
+public class NoTaxProduct extends Product {
 
 
     @Override

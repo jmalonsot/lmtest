@@ -1,51 +1,38 @@
 package com.java.lmtest;
 
 import com.java.lmtest.Factory.ProductFactory;
-import com.java.lmtest.types.Book;
-import com.java.lmtest.types.Food;
-import com.java.lmtest.types.Medical;
 import com.java.lmtest.types.Product;
+import com.java.lmtest.types.Tax;
 
 import java.math.BigDecimal;
 
 public class SalesTaxes {
 
+    BigDecimal totalPrice = new BigDecimal("0");
 
-    public BigDecimal BasicTax (BigDecimal product) {
+    BigDecimal totalTax= new BigDecimal("0");
 
-      return  new BigDecimal("10").multiply(product).divide(new BigDecimal("100"));
-
-    }
-
-    public BigDecimal ImportTax (BigDecimal product) {
-
-        return  new BigDecimal("15").multiply(product).divide(new BigDecimal("100"));
-
-    }
-
-    public BigDecimal RoundTax (BigDecimal product) {
-
-        double d = Math.round(product.doubleValue() * 20) / 20.0;
-
-        return new BigDecimal(String.valueOf(d)).setScale(2);
-    }
+    Tax taxes = new Tax();
 
 
 
-    public void ConvertLine (String line) {
+    public String ConvertLine (String line) {
 
-        String[] word = line.split("at");
-        String amountNameProduct = word[0];
-        String priceProduct = word[1];
-        String[] amountNameProductSplit = amountNameProduct.split(" ");
+        int position = line.lastIndexOf("at");
+        String priceProduct = line.substring(position+2);
+        String amountNameProduct = line.substring(0, position);
+        String[] amountNameProductSplit = amountNameProduct.toLowerCase().split(" ");
         String numberProduct=amountNameProductSplit[0];
         String nameProduct = amountNameProduct.substring(numberProduct.length());
+        nameProduct = nameProduct.substring(0, nameProduct.length()-1);
         ProductFactory productFactory = new ProductFactory();
 
         Product productType= productFactory.getProduct(nameProduct);
-        productType.setPrice(priceProduct);
-        System.out.println(nameProduct + ":" + productType.getPriceWithTax());
-
+        productType.setPrice(new BigDecimal(priceProduct.trim()));
+        totalPrice = totalPrice.add(productType.getPriceWithTax());
+        totalTax = totalTax.add(productType.getTax());
+        //System.out.println(nameProduct + ":" + productType.getPriceWithTax());
+        return numberProduct.trim()  + nameProduct + ": " + productType.getPriceWithTax() + "\n";
 
     }
 
@@ -55,9 +42,10 @@ public class SalesTaxes {
         String textResult="";
         for (int i=0; i<lines.length; i++) {
             String line = lines[i];
-            ConvertLine (line);
+            textResult+=ConvertLine (line);
         }
-
+        textResult+="Sales Taxes: "+totalTax.setScale(2, BigDecimal.ROUND_UP)+ "\n";
+        textResult+="Total: "+totalPrice.setScale(2, BigDecimal.ROUND_UP)+ "\n";
         return textResult;
 
     }

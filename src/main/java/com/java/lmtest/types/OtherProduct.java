@@ -6,24 +6,21 @@ import java.math.BigDecimal;
 
 public class OtherProduct extends Product {
 
+    Tax taxes = new Tax();
 
     @Override
     public BigDecimal getPriceWithTax(){
 
-        SalesTaxes salesTaxes = new SalesTaxes();
+        BigDecimal basicTax = taxes.BasicTax(getPrice());
 
-        BigDecimal basicTax = salesTaxes.BasicTax(getPrice());
-
-        return salesTaxes.RoundTax(basicTax).add(getPrice());
+        return taxes.RoundTax(basicTax).add(getPrice());
 
     }
 
     @Override
     public BigDecimal getTax(){
 
-        SalesTaxes salesTaxes = new SalesTaxes();
-
-        BigDecimal importTax = salesTaxes.BasicTax(getPrice());
+        BigDecimal importTax = taxes.BasicTax(getPrice());
 
         return importTax;
 
