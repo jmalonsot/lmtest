@@ -20,5 +20,14 @@ public class ImportNoTaxProductTest {
 
     }
 
+    @Test
+    public void testGetTax() {
+
+        ImportNoTaxProduct importNoTaxProduct = new ImportNoTaxProduct();
+        importNoTaxProduct.setPrice(new BigDecimal("11.25"));
+        BigDecimal result = importNoTaxProduct.getTax();
+        assertEquals (new BigDecimal("0.60"), result);
+
+    }
 
 }

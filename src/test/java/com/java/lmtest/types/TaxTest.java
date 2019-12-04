@@ -1,6 +1,5 @@
 package com.java.lmtest.types;
 
-import com.java.lmtest.types.Tax;
 import org.junit.Test;
 
 import java.math.BigDecimal;

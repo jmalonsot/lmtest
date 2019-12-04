@@ -1,18 +1,10 @@
 package com.java.lmtest;
 
-import com.java.lmtest.types.Tax;
 import org.junit.Test;
-
-import java.math.BigDecimal;
-
-
-
 import static org.junit.Assert.assertEquals;
 
 public class SalesTaxesTest {
-
-
-
+    
     @Test
     public void testInput1 () {
     String input = "1 book at 12.49\n"
