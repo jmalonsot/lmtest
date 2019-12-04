@@ -1,9 +1,6 @@
 package com.java.lmtest.Factory;
 
-import com.java.lmtest.types.ImportProduct;
-import com.java.lmtest.types.NoTaxProduct;
-import com.java.lmtest.types.OtherProduct;
-import com.java.lmtest.types.Product;
+import com.java.lmtest.types.*;
 
 public class ProductFactory {
 
@@ -13,14 +10,21 @@ public class ProductFactory {
     public Product getProduct(String text) {
          if (isImport(text)) {
 
-             return new ImportProduct();
+             if (isNoTax(text)) {
+
+                 return new ImportNoTaxProduct();
+             }
+             else {
+                 return new ImportBasicTaxProduct();
+             }
+
          }
          else if (isNoTax(text)) {
 
             return new NoTaxProduct();
         }
         else  {
-            return new OtherProduct();
+            return new BasicTaxProduct();
         }
 
     }

@@ -4,7 +4,7 @@ import com.java.lmtest.SalesTaxes;
 
 import java.math.BigDecimal;
 
-public class OtherProduct extends Product {
+public class BasicTaxProduct extends Product {
 
     Tax taxes = new Tax();
 
@@ -20,9 +20,9 @@ public class OtherProduct extends Product {
     @Override
     public BigDecimal getTax(){
 
-        BigDecimal importTax = taxes.BasicTax(getPrice());
+        BigDecimal basicTax = taxes.BasicTax(getPrice());
 
-        return importTax;
+        return taxes.RoundTax(basicTax);
 
     }
 

@@ -2,7 +2,6 @@ package com.java.lmtest;
 
 import com.java.lmtest.Factory.ProductFactory;
 import com.java.lmtest.types.Product;
-import com.java.lmtest.types.Tax;
 
 import java.math.BigDecimal;
 
@@ -12,7 +11,6 @@ public class SalesTaxes {
 
     BigDecimal totalTax= new BigDecimal("0");
 
-    Tax taxes = new Tax();
 
 
 
@@ -49,8 +47,5 @@ public class SalesTaxes {
         return textResult;
 
     }
-
-
-
 
 }

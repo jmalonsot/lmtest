@@ -6,45 +6,12 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 
+
 import static org.junit.Assert.assertEquals;
 
 public class SalesTaxesTest {
 
-    Tax taxes = new Tax();
 
-    @Test
-    public void testBasicTax () {
-
-        BigDecimal result = taxes.BasicTax(new BigDecimal("15"));
-        assertEquals (new BigDecimal("1.5"), result);
-
-    }
-
-    @Test
-    public void testBasicRoundTax () {
-
-        BigDecimal basicTax = taxes.BasicTax(new BigDecimal("14.99"));
-        BigDecimal result = taxes.RoundTax(basicTax);
-        assertEquals (new BigDecimal("1.50"), result);
-
-    }
-
-    @Test
-    public void testImportTax () {
-
-        BigDecimal result = taxes.ImportTax(new BigDecimal("47.50"));
-        assertEquals (new BigDecimal("7.125"), result);
-
-    }
-
-    @Test
-    public void testImportRoundTax () {
-
-        BigDecimal importTax = taxes.ImportTax(new BigDecimal("47.50"));
-        BigDecimal result = taxes.RoundTax(importTax);
-        assertEquals (new BigDecimal("7.15"), result);
-
-    }
 
     @Test
     public void testInput1 () {
@@ -56,14 +23,43 @@ public class SalesTaxesTest {
             + "1 chocolate bar: 0.85\n"
             + "Sales Taxes: 1.50\n"
             + "Total: 29.83\n";
-
         SalesTaxes salesTaxes = new SalesTaxes();
         String outputResult = salesTaxes.ConvertText(input);
         assertEquals (output, outputResult);
 
     }
 
+    @Test
+    public void testInput2 () {
+        String input = "1 imported box of chocolates at 10.00\n"
+                + "1 imported bottle of perfume at 47.50";
+        String output = "1 imported box of chocolates: 10.50\n"
+                + "1 imported bottle of perfume: 54.65\n"
+                + "Sales Taxes: 7.65\n"
+                + "Total: 65.15\n";
+        SalesTaxes salesTaxes = new SalesTaxes();
+        String outputResult = salesTaxes.ConvertText(input);
+        assertEquals (output, outputResult);
 
+    }
+
+    @Test
+    public void testInput3 () {
+        String input = "1 imported bottle of perfume at 27.99\n"
+                + "1 bottle of perfume at 18.99\n"
+                + "1 packet of headache pills at 9.75\n"
+                + "1 imported box of chocolates at 11.25";
+        String output = "1 imported bottle of perfume: 32.19\n"
+                + "1 bottle of perfume: 20.89\n"
+                + "1 packet of headache pills: 9.75\n"
+                + "1 imported box of chocolates: 11.85\n"
+                + "Sales Taxes: 6.70\n"
+                + "Total: 74.68\n";
+        SalesTaxes salesTaxes = new SalesTaxes();
+        String outputResult = salesTaxes.ConvertText(input);
+        assertEquals (output, outputResult);
+
+    }
 
 
 

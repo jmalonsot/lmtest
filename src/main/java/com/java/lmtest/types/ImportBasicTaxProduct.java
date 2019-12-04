@@ -1,10 +1,8 @@
 package com.java.lmtest.types;
 
-import com.java.lmtest.SalesTaxes;
-
 import java.math.BigDecimal;
 
-public class ImportProduct extends Product {
+public class ImportBasicTaxProduct extends Product {
 
     Tax taxes = new Tax();
 
@@ -12,8 +10,9 @@ public class ImportProduct extends Product {
     public BigDecimal getPriceWithTax(){
 
         BigDecimal importTax = taxes.ImportTax(getPrice());
+        BigDecimal basicTax = taxes.BasicTax(getPrice());
 
-        return taxes.RoundTax(importTax).add(getPrice());
+        return taxes.RoundTax(importTax.add(basicTax)).add(getPrice());
 
     }
 
@@ -21,8 +20,9 @@ public class ImportProduct extends Product {
     public BigDecimal getTax(){
 
         BigDecimal importTax = taxes.ImportTax(getPrice());
+        BigDecimal basicTax = taxes.BasicTax(getPrice());
 
-        return importTax;
+        return taxes.RoundTax(importTax.add(basicTax));
 
     }
 }
